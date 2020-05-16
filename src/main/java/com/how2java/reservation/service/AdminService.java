@@ -15,7 +15,6 @@ import com.how2java.reservation.util.Page4Navigator;
 @Service
 public class AdminService {
 	@Autowired AdminDAO adminDAO;
-	 
 	public String getPassword(String name){
 		List<Admin> cs=adminDAO.findByName(name);
 		return cs.get(0).getPassword();
