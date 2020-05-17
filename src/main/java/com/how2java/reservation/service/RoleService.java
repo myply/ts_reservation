@@ -25,7 +25,7 @@ public class RoleService {
 	@Autowired AdminRoleDAO adminRoleDAO;
 	public Set<String> listRoleNames(String adminName){
 		List<Admin> cs=adminDAO.findByName(adminName);
-		List<AdminRole> cs1=adminRoleDAO.finByUid(cs.get(0).getId());
+		List<AdminRole> cs1=adminRoleDAO.findByUid(cs.get(0).getId());
 		List<Role> cs2=roleDAO.findById(cs1.get(0).getRid());
 		Set<String> rs = new HashSet<>();
 		for (Role c : cs2) {
@@ -36,13 +36,13 @@ public class RoleService {
 
 	public List<Role> listRoles(String adminName){
 		List<Admin> cs=adminDAO.findByName(adminName);
-		List<AdminRole> cs1=adminRoleDAO.finByUid(cs.get(0).getId());
+		List<AdminRole> cs1=adminRoleDAO.findByUid(cs.get(0).getId());
 		List<Role> cs2=roleDAO.findById(cs1.get(0).getRid());
 		return cs2;
 	}
 
 	public List<Role> listRoles(Admin admin){
-		List<AdminRole> cs1=adminRoleDAO.finByUid(admin.getId());
+		List<AdminRole> cs1=adminRoleDAO.findByUid(admin.getId());
 		List<Role> cs2=roleDAO.findById(cs1.get(0).getRid());
 		return cs2;
 	}

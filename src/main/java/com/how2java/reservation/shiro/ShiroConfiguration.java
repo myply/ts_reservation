@@ -15,8 +15,8 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
  
-import com.how2java.filter.URLPathMatchingFilter;
-import com.how2java.realm.DatabaseRealm;
+import com.how2java.reservation.filter.URLPathMatchingFilter;
+import com.how2java.reservation.realm.DatabaseRealm;
  
 @Configuration
 public class ShiroConfiguration {

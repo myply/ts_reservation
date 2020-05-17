@@ -11,72 +11,72 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.how2java.pojo.Role;
-import com.how2java.pojo.User;
-import com.how2java.service.RoleService;
-import com.how2java.service.UserRoleService;
-import com.how2java.service.UserService;
+import com.how2java.reservation.pojo.Role;
+import com.how2java.reservation.pojo.Admin;
+import com.how2java.reservation.service.RoleService;
+import com.how2java.reservation.service.AdminRoleService;
+import com.how2java.reservation.service.AdminService;
 
 @Controller
 @RequestMapping("config")
-public class UserController {
+public class AdminController {
 	@Autowired
-	UserRoleService userRoleService;
+	AdminRoleService adminRoleService;
 	@Autowired
-	UserService userService;
+	AdminService adminService;
 	@Autowired
 	RoleService roleService;
 
 	@RequestMapping("listUser")
 	public String list(Model model) {
-		List<User> us = userService.list();
-		model.addAttribute("us", us);
-		Map<User, List<Role>> user_roles = new HashMap<>();
-		for (User user : us) {
-			List<Role> roles = roleService.listRoles(user);
-			user_roles.put(user, roles);
+		List<Admin> ad = adminService.list();
+		model.addAttribute("us", ad);
+		Map<Admin, List<Role>> admin_roles = new HashMap<>();
+		for (Admin admin : ad) {
+			List<Role> roles = roleService.listRoles(admin);
+			admin_roles.put(admin, roles);
 		}
-		model.addAttribute("user_roles", user_roles);
+		model.addAttribute("admin_roles", admin_roles);
 
 		return "listUser";
 	}
 
 	@RequestMapping("editUser")
-	public String edit(Model model, long id) {
+	public String edit(Model model, int id) {
 		List<Role> rs = roleService.list();
 		model.addAttribute("rs", rs);
-		User user = userService.get(id);
-		model.addAttribute("user", user);
+		Admin admin = adminService.get(id);
+		model.addAttribute("admin", admin);
 
-		List<Role> roles = roleService.listRoles(user);
+		List<Role> roles = roleService.listRoles(admin);
 		model.addAttribute("currentRoles", roles);
 
 		return "editUser";
 	}
 
 	@RequestMapping("deleteUser")
-	public String delete(Model model, long id) {
-		userService.delete(id);
+	public String delete(Model model, int id) {
+		adminService.delete(id);
 		return "redirect:listUser";
 	}
 
 	@RequestMapping("updateUser")
-	public String update(User user, long[] roleIds) {
-		userRoleService.setRoles(user, roleIds);
+	public String update(Admin admin, int[] roleIds) {
+		adminRoleService.setRoles(admin, roleIds);
 
-		String password = user.getPassword();
+		String password = admin.getPassword();
 		// 如果在修改的时候没有设置密码，就表示不改动密码
-		if (user.getPassword().length() != 0) {
+		if (admin.getPassword().length() != 0) {
 			String salt = new SecureRandomNumberGenerator().nextBytes().toString();
 			int times = 2;
 			String algorithmName = "md5";
 			String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
-			user.setSalt(salt);
-			user.setPassword(encodedPassword);
+			admin.setSalt(salt);
+			admin.setPassword(encodedPassword);
 		} else
-			user.setPassword(null);
+			admin.setPassword(null);
 
-		userService.update(user);
+		adminService.update(admin);
 
 		return "redirect:listUser";
 
@@ -91,11 +91,11 @@ public class UserController {
 
 		String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
 
-		User u = new User();
-		u.setName(name);
-		u.setPassword(encodedPassword);
-		u.setSalt(salt);
-		userService.add(u);
+		Admin a = new Admin();
+		a.setName(name);
+		a.setPassword(encodedPassword);
+		a.setSalt(salt);
+		adminService.add(a);
 
 		return "redirect:listUser";
 	}

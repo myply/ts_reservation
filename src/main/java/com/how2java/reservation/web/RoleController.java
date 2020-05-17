@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.how2java.pojo.Permission;
-import com.how2java.pojo.Role;
-import com.how2java.service.PermissionService;
-import com.how2java.service.RolePermissionService;
-import com.how2java.service.RoleService;
+import com.how2java.reservation.pojo.Permission;
+import com.how2java.reservation.pojo.Role;
+import com.how2java.reservation.service.PermissionService;
+import com.how2java.reservation.service.RolePermissionService;
+import com.how2java.reservation.service.RoleService;
 
 @Controller
 @RequestMapping("config")
@@ -43,7 +43,7 @@ public class RoleController {
 	}
 
 	@RequestMapping("editRole")
-	public String list(Model model, long id) {
+	public String list(Model model, int id) {
 		Role role = roleService.get(id);
 		model.addAttribute("role", role);
 
@@ -57,7 +57,7 @@ public class RoleController {
 	}
 
 	@RequestMapping("updateRole")
-	public String update(Role role, long[] permissionIds) {
+	public String update(Role role, int[] permissionIds) {
 		rolePermissionService.setPermissions(role, permissionIds);
 		roleService.update(role);
 		return "redirect:listRole";
@@ -72,7 +72,7 @@ public class RoleController {
 	}
 
 	@RequestMapping("deleteRole")
-	public String delete(Model model, long id) {
+	public String delete(Model model, int id) {
 		roleService.delete(id);
 		return "redirect:listRole";
 	}

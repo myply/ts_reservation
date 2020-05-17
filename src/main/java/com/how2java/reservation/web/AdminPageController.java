@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminPageController {
     @GetMapping(value="/admin")
     public String admin(){
+    	System.out.println("验证运行到此" );
         return "redirect:admin_user_list";
     }
     @GetMapping(value="/admin_user_list")

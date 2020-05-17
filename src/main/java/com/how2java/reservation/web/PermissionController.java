@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.how2java.pojo.Permission;
-import com.how2java.service.PermissionService;
+import com.how2java.reservation.pojo.Permission;
+import com.how2java.reservation.service.PermissionService;
 
 @Controller
 @RequestMapping("config")
@@ -24,7 +24,7 @@ public class PermissionController {
 	}
 
 	@RequestMapping("editPermission")
-	public String list(Model model, long id) {
+	public String list(Model model, int id) {
 		Permission permission = permissionService.get(id);
 		model.addAttribute("permission", permission);
 		return "editPermission";
@@ -46,7 +46,7 @@ public class PermissionController {
 	}
 
 	@RequestMapping("deletePermission")
-	public String delete(Model model, long id) {
+	public String delete(Model model, int id) {
 		permissionService.delete(id);
 		return "redirect:listPermission";
 	}

@@ -17,7 +17,7 @@ import com.how2java.reservation.pojo.RolePermission;
 import com.how2java.reservation.pojo.User;
 import com.how2java.reservation.util.Page4Navigator;
 @Service
-public class RolePermisssionService {
+public class RolePermissionService {
 	@Autowired RolePermissionDAO rolepermissionDAO;
 	public void setPermissions(Role role, int[] permissionIds){
 		for (int pid : permissionIds) {

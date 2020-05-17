@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 //专门用于显示页面的控制器
 @Controller
-@RequestMapping("")
 public class PageController {
 
 	@RequestMapping("index")

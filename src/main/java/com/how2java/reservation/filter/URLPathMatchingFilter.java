@@ -32,7 +32,10 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
         Subject subject = SecurityUtils.getSubject();
         // 如果没有登录，就跳转到登录页面
         if (!subject.isAuthenticated()) {
-            WebUtils.issueRedirect(request, response, "/login");
+        	System.out.println("验证失败，if语句运行到此" );
+//            WebUtils.issueRedirect(request, response, "/login");
+        	WebUtils.issueRedirect(request, response, "/admin/login");
+//            WebUtils.issueRedirect(request, response, "/admin/listUser");
             return false;
         }
  

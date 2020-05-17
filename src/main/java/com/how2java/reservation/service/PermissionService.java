@@ -42,7 +42,7 @@ public class PermissionService {
 			List<RolePermission> cs2=rolePermissionDAO.findByRid(ar.getRid());
 			for (RolePermission rp : cs2){
 				int pid=rp.getPid();
-				List<Permission> cs3=permissionDAO.findByPid(pid);
+				List<Permission> cs3=permissionDAO.findById(pid);
 				rs.add(cs3.get(0).getName());
 			}
         }
@@ -76,7 +76,7 @@ public class PermissionService {
 		List<RolePermission> cs2=rolePermissionDAO.findByRid(role.getId());
 		for (RolePermission rp : cs2){
 			int pid=rp.getPid();
-			List<Permission> cs3=permissionDAO.findByPid(pid);
+			List<Permission> cs3=permissionDAO.findById(pid);
 			rs.addAll(cs3);
 		}
 	    return rs;	
@@ -100,7 +100,7 @@ public class PermissionService {
 			List<RolePermission> cs2=rolePermissionDAO.findByRid(ar.getRid());
 			for (RolePermission rp : cs2){
 				int pid=rp.getPid();
-				List<Permission> cs3=permissionDAO.findByPid(pid);
+				List<Permission> cs3=permissionDAO.findById(pid);
 				result.add(cs3.get(0).getUrl());
 			}
         }

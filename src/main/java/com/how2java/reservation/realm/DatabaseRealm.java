@@ -18,6 +18,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.how2java.reservation.pojo.Admin;
+import com.how2java.reservation.service.AdminService;
 import com.how2java.reservation.service.PermissionService;
 import com.how2java.reservation.service.RoleService;
 import com.how2java.reservation.service.UserService;
@@ -25,7 +26,7 @@ import com.how2java.reservation.service.UserService;
 public class DatabaseRealm extends AuthorizingRealm {
 
 	@Autowired
-	private UserService userService;
+	private AdminService adminService;
 	@Autowired
 	private RoleService roleService;
 	@Autowired
@@ -53,9 +54,9 @@ public class DatabaseRealm extends AuthorizingRealm {
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		String userName = token.getPrincipal().toString();
 		// 获取数据库中的密码
-		User user = userService.getByName(userName);
-		String passwordInDB = user.getPassword();
-		String salt = user.getSalt();
+		Admin admin = adminService.getByName(userName);
+		String passwordInDB = admin.getPassword();
+		String salt = admin.getSalt();
 		// 认证信息里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名 :databaseRealm
 		// 盐也放进去
 		// 这样通过applicationContext-shiro.xml里配置的 HashedCredentialsMatcher 进行自动校验

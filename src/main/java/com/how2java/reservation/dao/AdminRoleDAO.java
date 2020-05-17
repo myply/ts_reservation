@@ -7,8 +7,6 @@ import com.how2java.reservation.pojo.AdminRole;
 public interface AdminRoleDAO extends JpaRepository<AdminRole,Integer>{
 
 
-	List<AdminRole> finByUid(int id);
-
 	void deleteByUid(int userId);
 
 	void deleteByRid(int roleId);
