@@ -47,6 +47,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
+//        shiroFilterFactoryBean.setSuccessUrl("/admin_user_list");
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
         //拦截器.
@@ -60,7 +61,10 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/config/**", "anon");
-        filterChainDefinitionMap.put("/doLogout", "logout");;
+        filterChainDefinitionMap.put("/doLogout", "logout");
+//        filterChainDefinitionMap.put("/admin/login", "anon");
+//        filterChainDefinitionMap.put("/admin", "anon");
+//        filterChainDefinitionMap.put("/admin/listUser", "anon");
         filterChainDefinitionMap.put("/**", "url");
         shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
