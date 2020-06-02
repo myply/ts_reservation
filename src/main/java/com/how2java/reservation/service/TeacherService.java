@@ -9,37 +9,37 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
- 
+
+import com.how2java.reservation.dao.TeacherDAO;
 import com.how2java.reservation.dao.UserDAO;
-import com.how2java.reservation.pojo.User;
+import com.how2java.reservation.pojo.Teacher;
  
 @Service
-public class UserService {
-    @Autowired UserDAO userDAO;
+public class TeacherService {
+    @Autowired TeacherDAO teacherDAO;
  
-    public Page4Navigator<User> list(int start, int size, int navigatePages) {
+    public Page4Navigator<Teacher> list(int start, int size, int navigatePages) {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(start, size,sort);
-        Page pageFromJPA =userDAO.findAll(pageable);
- 
+        Page pageFromJPA =teacherDAO.findAll(pageable);
         return new Page4Navigator<>(pageFromJPA,navigatePages);
     }
-    public List<User> list() {
+    public List<Teacher> list() {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
-        return userDAO.findAll(sort);
+        return teacherDAO.findAll(sort);
     }
-	public void add(User bean) {
-		userDAO.save(bean);
+	public void add(Teacher bean) {
+		teacherDAO.save(bean);
 	}
 
-	public User get(int id) {
-		User c= userDAO.findOne(id);
+	public Teacher get(int id) {
+		Teacher c= teacherDAO.findOne(id);
 		return c;
 	}
-	public void update(User bean) {
-		userDAO.save(bean);
+	public void update(Teacher bean) {
+		teacherDAO.save(bean);
 	}
 	public void delete(int id) {
-		userDAO.delete(id);
+		teacherDAO.delete(id);
     }
 }

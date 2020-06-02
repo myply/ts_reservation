@@ -21,6 +21,10 @@ public class AdminRoleService {
 			adminRoleDAO.save(adminRole);
         }
 	}
+    
+	public void add(AdminRole bean){
+		adminRoleDAO.save(bean);
+	}
 
 	public void deleteByUser(int userId){
 		adminRoleDAO.deleteByUid(userId);

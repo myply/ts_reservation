@@ -14,4 +14,24 @@ public class AdminPageController {
     public String listUser(){
         return "admin/listUser";
     }
+    @GetMapping(value="/admin_user_edit")
+    public String editUser(){
+        return "admin/editUser";
+ 
+    }
+    @GetMapping(value="/admin_teacher_list")
+    public String listTeacher(){
+        return "admin/listTeacher";
+ 
+    }
+    @GetMapping(value="/admin_teacher_edit")
+    public String editTeacher(){
+        return "admin/editTeacher";
+ 
+    }
+    @GetMapping(value="/admin_reservation_list")
+    public String listReservation(){
+        return "admin/listReservation";
+ 
+    }
 }
