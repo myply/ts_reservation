@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
  
 import com.how2java.reservation.dao.UserDAO;
+import com.how2java.reservation.pojo.Admin;
 import com.how2java.reservation.pojo.User;
  
 @Service
@@ -42,4 +43,5 @@ public class UserService {
 	public void delete(int id) {
 		userDAO.delete(id);
     }
+
 }

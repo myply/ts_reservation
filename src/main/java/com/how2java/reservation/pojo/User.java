@@ -20,14 +20,19 @@ public class User {
     int id;
      
     String name;
-     
+    int aid;
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
-     
+    public int getAid() {
+        return aid;
+    }
+    public void setAid(int id) {
+        this.aid = aid;
+    }
     public String getName() {
         return name;
     }

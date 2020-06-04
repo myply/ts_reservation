@@ -1,5 +1,6 @@
 package com.how2java.reservation.web;
  
+import com.how2java.reservation.pojo.AddTeacher;
 import com.how2java.reservation.pojo.Admin;
 import com.how2java.reservation.pojo.AdminRole;
 import com.how2java.reservation.pojo.Teacher;
@@ -7,6 +8,9 @@ import com.how2java.reservation.service.AdminRoleService;
 import com.how2java.reservation.service.AdminService;
 import com.how2java.reservation.service.TeacherService;
 import com.how2java.reservation.util.Page4Navigator;
+
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +39,31 @@ public class TeacherController {
   }
 //  REST 规范
   @PostMapping("/teachers")
-  public Object add(Teacher bean,Admin admin,HttpServletRequest request) throws Exception {
+  public Object add(AddTeacher bean,HttpServletRequest request) throws Exception {
+	  Admin admin=new Admin();
+	  String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+      int times = 2;
+      String algorithmName = "md5";
+      String encodedPassword = new SimpleHash(algorithmName,bean.getPassword(),salt,times).toString();
+      
+      admin.setName(bean.getAccount());
+      admin.setSalt(salt);
+	  admin.setPassword(encodedPassword);
 	  adminService.add(admin);
+	  
+	  int id=adminService.getByName(admin.getName()).getId();
+	  
+	  Teacher teacher=new Teacher();
+	  teacher.setName(bean.getName());
+	  teacher.setDid(bean.getDid());
+	  teacher.setAid(id);
+	  teacherService.add(teacher);
+	  
 	  AdminRole ar=new AdminRole();
 	  ar.setRid(2);
-	  int id=adminService.getByName(admin.getName()).getId();
 	  ar.setUid(id);
-	  bean.setAid(id);
-	  teacherService.add(bean);
 	  adminRoleService.add(ar);
-      return bean;
+      return teacher;
   }
   @DeleteMapping("/teachers/{id}")
   public String delete(@PathVariable("id") int id, HttpServletRequest request)  throws Exception {

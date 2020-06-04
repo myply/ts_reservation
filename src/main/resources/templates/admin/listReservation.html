@@ -9,6 +9,7 @@
         var data4Vue = {
             uri:'reservations',
             beans: [],
+            admin: { id: 0, name: ''},
             bean: { id: 0, begintime: '',endtime: '',status:''},
             pagination:{},
         };
@@ -19,6 +20,7 @@
             data: data4Vue,
             mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
                 this.list(0);
+                this.getAdmin(); 
             },
             methods: {
                 list:function(start){
@@ -42,6 +44,12 @@
                     axios.post(url,formData,formData1).then(function(response){
                         vue.list(0);
                         vue.bean = { id: 0, name: '',departmrnt: 1,account:''};
+                    });
+                },
+                getAdmin:function(){
+                    var url ='getadmin';
+                    axios.get(url).then(function(response) {
+                        vue.admin = response.data;
                     });
                 },
                 deleteBean: function (id) {
@@ -78,7 +86,10 @@
  
 </script>
 <div id="workingArea" >
-    <h1 class="label label-info" >教师管理</h1>
+    <h1 class="label label-info" >当前用户：</h1>
+     <tr>
+         <td>{{admin.name}}</td>
+    </tr>
     <br>
     <br>
     <div class="listDataTableDiv">
@@ -113,30 +124,6 @@
         </table>
     </div>
     <div th:replace="include/admin/adminPage::html" ></div>
-    <div class="panel panel-warning addDiv">
-        <div class="panel-heading">新增教师</div>
-        <div class="panel-body">
-            <table class="addTable">
-                <tr>
-                    <td>教师名称</td>
-                    <td><input  @keyup.enter="add" v-model.trim="bean.name" type="text" class="form-control"></td>
-                </tr>
-                <tr>
-                    <td>登录账号</td>
-                    <td><input  @keyup.enter="add" v-model.trim="bean.account" type="text" class="form-control"></td>
-                </tr>
-                <tr>
-                    <td>院系编号</td>
-                    <td><input  @keyup.enter="add" v-model.trim="bean.did" type="text" class="form-control"></td>
-                </tr>
-                <tr class="submitTR">
-                    <td colspan="2" align="center">
-                        <a href="#nowhere"  @click="add" class="btn btn-success">提交</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
 </div>
 <div th:replace="include/admin/adminFooter::html" ></div>
 </body>

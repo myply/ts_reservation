@@ -23,7 +23,16 @@ public class ReservationService {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(start, size,sort);
         Page pageFromJPA =reservationDAO.findAll(pageable);
-
         return new Page4Navigator<>(pageFromJPA,navigatePages);
+    }
+	public Reservation get(int id) {
+		Reservation c= reservationDAO.findOne(id);
+		return c;
+	}
+	public void update(Reservation bean) {
+		reservationDAO.save(bean);
+	}
+	public void delete(int id) {
+		reservationDAO.delete(id);
     }
 }
